@@ -1,0 +1,82 @@
+<div class="dashboard grid">
+	<img class="background solo" src="static/assets/images/bg-dashboard.png" />
+	<header></header>
+
+	<div class="installation-information-wrapper solo">
+		<div class="installation-highlights solo">
+			<img src="static/assets/images/img-energyFlow.svg">
+			<ul>
+				<li class="highlight left">
+					<h2>{{ profile.active_deals }}</h2>
+					<ng-pluralize count="profile.active_deals" when="{'one': 'Active deal', 'other': 'Active deals'}"></ng-pluralize>
+				</li>
+				<li class="highlight left">
+					<h2>{{ profile.left | number:2 }}</h2>
+					Credit Remaining
+				</li>
+				<li class="highlight left">
+					<h2 data-ng-if="profile.earnings"><span id="dollar">$</span>{{ profile.earnings | number:2 }}</h2>
+					<h2 data-ng-if="!profile.earnings"><span id="dollar">$</span>0.00</h2>
+					Earned
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="installation-panel-wrapper">
+		<div class="installation-header">
+			<div class="installation-active left" ng-class="{'fade' : active == 'pending'}" ng-click="active = 'active'">
+				<p>{{ profile.active_deals }}
+				<ng-pluralize count="profile.active_deals" when="{'one': 'Active deal', 'other': 'Active deals'}"></ng-pluralize></p>
+			</div>
+			<div class="installation-active left" ng-class="{'fade' : active == 'active'}" ng-click="active = 'pending'">
+				<p>{{ profile.pending_deals }}
+				<ng-pluralize count="profile.pending_deals" when="{'one': 'Pending deal', 'other': 'Pending deals'}"></ng-pluralize></p>
+			</div>
+		</div>
+
+		<div class="panel-wrapper">
+			<div class="active" ng-show="active == 'active'">
+				<h4 ng-if="profile.active_deals == 0">No active deals to display.</h4>
+				<table class="panel" ng-if="profile.active_deals > 0">
+					<tr class="panel-header">
+						<td id="name">Email</td>
+						<td>User Type</td>
+						<td id="zip">KW needed</td>
+						<td id="percent">Start Date</td>
+					</tr>
+					<tr data-ng-repeat="match in matches" ng-if="match.info.status == 'active'">
+						<td id="name">{{ match.info.name }}</td>
+						<!-- TODO: Buyer placeholder is legacy not pulled from data -->
+						<td>Buyer</td>
+						<td id="zip">{{ match.info.power }}</td>
+						<td id="percent">{{ match.start_date }}</td>
+					</tr>
+				</table>
+			</div>
+
+			<div class="pending" ng-show="active == 'pending'">
+				<h4 ng-if="profile.pending_deals == 0">No pending deals to display.</h4>
+				<table class="panel" ng-if="profile.pending_deals > 0">
+					<tr class="panel-header">
+						<td id="name">Email</td>
+						<td>User Type</td>
+						<td id="zip">KW needed</td>
+						<!-- Last cell holds Sign/Reject buttons -->
+						<td></td>
+					</tr>
+					<tr data-ng-repeat="match in matches" ng-if="match.info.status == 'pending_seller'">
+						<td id="name">{{ match.info.name }}</td>
+						<!-- TODO: Buyer placeholder is legacy not pulled from data -->
+						<td>Buyer</td>
+						<td id="zip">{{ match.info.power }}</td>
+						<td id="percent">
+							<button class="button-alt left" id="reject" type="button" name="Reject" data-ng-click="reject(match);">Reject</button>
+							<button class="button-small right" id="sign" type="button" name="Sign" data-ng-click="signDeal(match);">Sign</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

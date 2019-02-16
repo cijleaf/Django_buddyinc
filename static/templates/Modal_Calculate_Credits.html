@@ -1,0 +1,41 @@
+<div class="modal-container white">
+  <div class="modal-general no-error">
+    <form>
+      <a href="javascript:;" class="close right" data-ng-click="cancel()">
+        <img src="static/assets/images/icons/icon-close.svg" />
+      </a>
+      <h4>Calculate credit</h4>
+
+      <div class="input-field">
+        <input type="text" data-ng-model="address" id="address" required maxlength="200" />
+        <span class="floating-label">Address</span>
+      </div>
+
+      <p style="margin-bottom:20px;"><strong> – OR – </strong></p>
+
+      <div class="input-field">
+        <input type="text" data-ng-model="lat" id="lat" required maxlength="100" />
+        <span class="floating-label">Latitude</span>
+      </div>
+
+      <div class="input-field">
+        <input type="text" data-ng-model="long" id="long" required maxlength="100" />
+        <span class="floating-label">Longitude</span>
+      </div>
+
+      <div class="input-field">
+        <p style="font-size:16px;color:#1A1905;">Module type</p>
+        <select class="form-control" data-ng-model="module_type" data-ng-options="item for item in installation.module_types" data-ng-init="module_type = module_type || installation.module_types[0]" id="module_type" style="margin-bottom:40px;">
+      </div>
+
+      <div class="input-field">
+        <input type="text" data-ng-model="system_capacity" id="system_capacity" required maxlength="100" />
+        <span class="floating-label">System capacity</span>
+      </div>
+
+      <div class="button-container" style="margin-top:80px;">
+        <button class="button-large" type="submit" data-ng-click="calculateCredits()">Save</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,5 @@
+Hello {{ customer.firstName }},
+
+The document you uploaded for account verification was successfully uploaded. You will receive another email when the document has been reviewed. It will either be approved or rejected.
+
+If you have any questions or concerns please contact support at (617) 934-4847 or support@mysunbuddy.com.

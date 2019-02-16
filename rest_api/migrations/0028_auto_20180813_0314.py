@@ -1,0 +1,29 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
+from django.db import migrations, models
+
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ('rest_api', '0027_auto_20180813_0101'),
+    ]
+
+    operations = [
+        migrations.AddField(
+            model_name='account',
+            name='wepay_payment_bank_id',
+            field=models.CharField(blank=True, null=True, max_length=200),
+        ),
+        migrations.AlterField(
+            model_name='account',
+            name='wepay_access_token',
+            field=models.CharField(blank=True, null=True, max_length=200),
+        ),
+        migrations.AlterField(
+            model_name='account',
+            name='wepay_account_id',
+            field=models.CharField(blank=True, null=True, max_length=200),
+        ),
+    ]

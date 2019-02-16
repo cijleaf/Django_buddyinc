@@ -1,0 +1,7 @@
+Hello {{ customer.firstName }},
+
+A bank account {{ resource.name }} was removed from your account on {{ today_date }}.
+
+Your regular scheduled payments will no longer be processed using this bank account.  To add a new bank account, log into your MySunBuddy account and follow the prompts to add a payment method on your dashboard.
+
+If you have any questions or concerns about this bank account being removed please contact support at (617) 934-4847 or support@mysunbuddy.com.

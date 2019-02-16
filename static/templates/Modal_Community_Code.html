@@ -1,0 +1,26 @@
+<div class="modal-container white">
+  <div class="modal-general no-error">
+    <form>
+      <a href="javascript:;" class="close right" data-ng-click="cancel()">
+        <img src="static/assets/images/icons/icon-close.svg" />
+      </a>
+      <h4>Enter community code</h4>
+      <p style="margin-bottom:40px;line-height:30px;"><strong>What is a community code?</strong>
+      <br>A community code is the code we use to identify a community solar installation in our database.
+      <br>Once you have entered a community code, you will be matched with that installation for a solar deal.
+      <br>You will not be matched with any other sellers.
+      <br>
+      <br><strong>Enter a community code below.</strong>
+      <br></p>
+
+      <div class="input-field">
+        <input type="text" data-ng-model="community_code" id="name" required maxlength="50" />
+        <span class="floating-label">Solar community code</span>
+      </div>
+
+      <div class="button-container">
+        <button class="button-large" type="submit" data-ng-click="saveCode()">Save</button>
+      </div>
+    </form>
+  </div>
+</div>

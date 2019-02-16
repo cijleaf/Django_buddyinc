@@ -1,0 +1,26 @@
+<div class="modal-container white">
+  <div class="modal-general no-error">
+    <form name="uploadVerificationDocumentForm" enctype="multipart/form-data" method="POST">
+      <a href="#" class="close right" data-ng-click="cancel()">
+        <img src="static/assets/images/icons/icon-close.svg" />
+      </a>
+      <h4 class="seller-signup-title">Upload verification document</h4>
+
+      <p></p>
+
+      <div class="input-field">
+        <select ng-model="form.document_type" ng-options="item.id as item.name for item in documentTypes">
+            <option value="">Select document type</option>
+        </select>
+      </div>
+
+      <div class="input-field">
+        <input type="file" name="file" id="documentFile" required />
+      </div>
+
+      <div class="button-container">
+        <button class="button-large" type="submit" data-ng-click="uploadVerificationDocument()">Upload</button>
+      </div>
+    </form>
+  </div>
+</div>

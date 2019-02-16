@@ -1,0 +1,139 @@
+<div class="header-wrapper white">
+  <div class="logo left">
+    <a href="/#/Landing">
+      <img src="static/assets/images/logo-black.png" alt="MySunBuddy Logo">
+    </a>
+  </div>
+</div>
+
+<div class="form-page">
+  <div class="modal-container">
+    <div class="modal-general">
+      <form name="signupForm" novalidate>
+        <h3>Sign up</h3>
+        <h4 ng-if="role === 'seller'">Seller account information</h4>
+        <h4 ng-if="role === 'buyer'">Buyer account information</h4>
+
+        <!-- Email -->
+        <div class="input-field">
+          <input type="text" data-ng-model="user.email" name="email" domain-email ng-required="true" maxlength="100"/>
+          <span class="floating-label" ng-class="{'error':  signupForm.email.$invalid && submitted}">Email</span>
+          <p class="error-info" data-ng-if="signupForm.email.$error.required && submitted">The email is required.</p>
+          <p class="error-info" data-ng-if="signupForm.email.$error.domainEmail && submitted">The email should be valid
+            email address with domain.</p>
+        </div>
+
+        <!-- Password -->
+        <div class="input-field">
+          <input type="password" data-ng-model="user.password" name="password" ng-required="true" maxlength="100"/>
+          <span class="floating-label" ng-class="{'error':  signupForm.password.$invalid && submitted}">Password</span>
+          <p class="error-info" data-ng-if="signupForm.password.$error.required && submitted">The password is
+            required.</p>
+          <div data-check-password="user.password"></div>
+        </div>
+
+        <!-- Password Confirm -->
+        <div class="input-field">
+          <input type="password" data-ng-model="user.confirmPassword" name="confirmPassword" ng-required="true"
+                 maxlength="100" ng-pattern="user.password"/>
+          <span class="floating-label" ng-class="{'error':  signupForm.confirmPassword.$invalid && submitted}">Confirm password</span>
+          <p class="error-info" data-ng-if="signupForm.confirmPassword.$error.required && submitted">The confirm
+            password is required.</p>
+          <p class="error-info"
+             data-ng-if="!signupForm.confirmPassword.$error.required && signupForm.confirmPassword.$error.pattern && submitted">
+            Passwords do not match.</p>
+        </div>
+
+        <!-- Name -->
+        <div class="input-field">
+          <input type="text" data-ng-model="user.name" name="name" ng-required="true" maxlength="100"/>
+          <span class="floating-label" ng-class="{'error': signupForm.name.$invalid && submitted}">Name</span>
+          <p class="error-info" data-ng-if="signupForm.name.$error.required && submitted">The name is required.</p>
+        </div>
+
+        <!-- Phone -->
+        <div class="input-field">
+          <input type="text" data-ng-model="user.phone" name="phone" ng-required="true" maxlength="100"
+                 us-phone-directive/>
+          <span class="floating-label" ng-class="{'error': signupForm.phone.$invalid && submitted}">Phone</span>
+        </div>
+
+        <!-- Address -->
+        <div class="input-field">
+          <input type="text" data-ng-model="user.address" name="address" ng-required="true" maxlength="200"/>
+          <span class="floating-label" ng-class="{'error': signupForm.address.$invalid && submitted}">Address</span>
+          <p class="error-info" data-ng-if="signupForm.address.$error.required && submitted">The address is
+            required.</p>
+        </div>
+
+        <!-- City -->
+        <div class="input-field">
+          <input type="text" data-ng-model="user.city" name="city" ng-required="true" maxlength="200"/>
+          <span class="floating-label" ng-class="{'error': signupForm.city.$invalid && submitted}">City</span>
+          <p class="error-info" data-ng-if="signupForm.city.$error.required && submitted">The city is required.</p>
+        </div>
+
+        <!-- State -->
+        <div class="input-field half left" style="padding-top: 3px;">
+          <select-state model="user.state"></select-state>
+          <span class="floating-label"
+                ng-class="{'error': !user.state && submitted, 'floating-label-float': user.state}">State</span>
+          <p class="error-info" data-ng-if="!user.state && submitted">The state is required.</p>
+        </div>
+
+        <!-- Zip -->
+        <div class="input-field half right">
+          <input type="text" data-ng-model="user.zip_code" name="zip_code" ng-required="true" maxlength="100"
+                 pattern="(\d{5}([\-]\d{4})?)"/>
+          <span class="floating-label"
+                ng-class="{'error': signupForm.zip_code.$invalid && submitted, 'floating-label-float': signupForm.zip_code.$viewValue}">Zip</span>
+          <p class="error-info"
+             data-ng-if="(signupForm.zip_code.$error.required || signupForm.zip_code.$invalid) && submitted">The zip
+            code is required.</p>
+        </div>
+
+        <div class="agreement-checkbox clearfix">
+          <!-- business checkbox-->
+          <div class="checkbox-container" ng-if="role === 'seller'">
+            <input type="checkbox" id="dwolla_customer_type" data-ng-model="user.dwolla_customer_type" name="dwolla_customer_type" value="business"/>
+            <label for="dwolla_customer_type">Business account</label>
+          </div>
+
+          <!-- Terms Agreement -->
+          <div class="checkbox-container">
+            <input type="checkbox" id="msb_terms" name="msb_terms" data-ng-model="user.agreed_to_msb_terms"
+                   value="Agree" ng-required="true"/>
+            <label for="msb_terms">I agree to the MySunBuddy <a href="javascript:;" data-ng-click="openPdf(terms)">Terms
+              of Use</a> and <a href="javascript:;" data-ng-click="openPdf(privacy)">Privacy Policy</a>.</label>
+            <p class="error-info" data-ng-if="signupForm.msb_terms.$error.required && submitted">You must agree to the
+              MySunBuddy Terms of Use and Privacy Policy.</p>
+          </div>
+
+          <div class="checkbox-container">
+            <input type="checkbox" id="dwolla_terms" name="dwolla_terms" data-ng-model="user.agreed_to_dwolla_terms"
+                   value="Agree" ng-required="true"/>
+            <label for="dwolla_terms">I agree to the Dwolla <a href="https://www.dwolla.com/legal/tos/" target="_blank">Terms
+              of Service</a> and <a href="https://www.dwolla.com/legal/privacy/" target="_blank">Privacy
+              Policy</a>.</label>
+            <p class="error-info" data-ng-if="signupForm.dwolla_terms.$error.required && submitted">You must agree to
+              the Dwolla Terms of Use and Privacy Policy.</p>
+          </div>
+
+          <div class="checkbox-container">
+            <input type="checkbox" id="facilitator_fee" name="facilitator_fee" data-ng-model="user.agreed_to_fee"
+                   value="Agree" ng-required="true"/>
+            <label for="facilitator_fee">I agree to the <a href="/#/FAQ" target="_blank">the facilitator fee as
+              explained in the FAQ</a>.</label>
+            <p class="error-info" data-ng-if="signupForm.facilitator_fee.$error.required && submitted">You must agree
+              the facilitator fee as explained in the FAQ.</p>
+          </div>
+        </div>
+
+        <!-- Sign Up Button -->
+        <div class="button-container">
+          <button class="button-large" type="submit" href="javascript:;" data-ng-click="signup();">Sign up</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

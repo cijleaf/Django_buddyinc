@@ -1,0 +1,55 @@
+
+.slider {
+    margin: 30px;
+}
+
+.account-information-title {
+    display:inline;
+}
+
+.account-highlights ul {
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.account-highlights ul li {
+  flex: 1;
+}
+
+#save-solar-percentage {
+    margin-right: 15px;
+}
+
+#solar-container.well {
+    height: 175px;
+}
+
+.graphic-and-share ul {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.disabled-buttons {
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+.jssocials-shares {
+    width: 100px;
+}
+.jssocials-share-link {
+    width: 100px;
+}
+
+.card-alert {
+  padding: 8px 14px;
+  margin: 0 0 15px 0;
+  border: 1px solid #FBDD95;
+  border-radius: 3px;
+  background-color: #f5ffdf;
+}

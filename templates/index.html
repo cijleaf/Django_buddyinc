@@ -1,0 +1,240 @@
+{% load staticfiles %}
+{% load compress %}
+<!DOCTYPE html>
+<html lang="en" data-ng-app="mySunBuddy">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="description" content="" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>MySunBuddy</title>
+  <!-- CSS -->
+  {% compress css %}
+  <link href="{% static 'css/bootstrap.tabs.css'%}" rel="stylesheet">
+  <link href="{% static 'css/fonts.css'%}" rel="stylesheet" type="text/css">
+  <link href="{% static 'css/screen.css'%}" rel="stylesheet">
+  <link href="{% static 'css/style.css'%}" rel="stylesheet">
+  <link href="{% static 'css/loading-bar.css'%}" rel="stylesheet">
+  <link href="{% static 'css/toastr.css'%}" rel="stylesheet">
+  <link href="{% static 'css/app.css'%}" rel="stylesheet">
+  <link href="{% static 'lib/font-awesome-4.7.0/css/font-awesome.min.css'%}" rel="stylesheet">
+  <link href="{% static 'lib/jssocials-1.4.0/jssocials.css'%}" rel="stylesheet">
+  <link href="{% static 'lib/jssocials-1.4.0/jssocials-theme-flat.css'%}" rel="stylesheet">
+  <link href="{% static 'lib/angular-datepicker/angular-datepicker.min.css'%}" rel="stylesheet">
+  {% endcompress %}
+  <script type="text/javascript">
+    //jsonp functions to set config and current logged in user from backend api
+    window.config = {{ config|safe }};
+    window.user = {{ user_data|safe }};
+  </script>
+
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-TBVBC64');</script>
+  <!-- End Google Tag Manager -->
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script>
+    if (config.googleAnalyticsTrackingId) {
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', config.googleAnalyticsTrackingId);
+    }
+  </script>
+  <!-- Content Experiment - Google Analytics -->
+  <script src="//www.google-analytics.com/cx/api.js?experiment={{ ga_experiment_key|safe }}"></script>
+
+  <!-- Facebook Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window,document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+     fbq('init', '1652943784834953');
+    fbq('track', 'PageView');
+  </script>
+  <noscript>
+     <img height="1" width="1" src="https://www.facebook.com/tr?id=1652943784834953&ev=PageView&noscript=1"/>
+  </noscript>
+  <!-- End Facebook Pixel Code -->
+  <!-- recaptcha -->
+
+{#  <script src='//www.google.com/recaptcha/api.js?onload=recaptchaOnload&render=explicit' async defer></script>#}
+{#  <script>#}
+{#    var _captchaTries = 0;#}
+{#    function recaptchaOnload() {#}
+{#        console.log("=============", $('.g-recaptcha').data("sitekey"));#}
+{#        _captchaTries++;#}
+{#        if (_captchaTries > 9)#}
+{#            return;#}
+{#        if ($('.g-recaptcha').length > 0) {#}
+{#            grecaptcha.render("recaptcha", {#}
+{#                sitekey: $('.g-recaptcha').data("sitekey"),#}
+{#                callback: function() {#}
+{#                    console.log('recaptcha callback');#}
+{#                }#}
+{#            });#}
+{#            return;#}
+{#        }#}
+{#        window.setTimeout(recaptchaOnload, 1000);#}
+{#    }#}
+{#  </script>#}
+
+</head>
+
+<body data-ng-controller="mainController">
+
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBVBC64"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <form id="postform" action="docusign/" method="POST">
+    {% csrf_token %}
+    <input type="hidden" id="templateRole" name="templateRole" />
+  </form>
+  {% verbatim %}
+  <div data-ng-view data-autoscroll="true"></div>
+  {% endverbatim %}
+  <!--/ Page -->
+
+  {% compress js %}
+  <script src="{% static 'lib/angular-1.5.8.min.js'%}"></script>
+  <script src="{% static 'lib/angulartics.min.js'%}"></script>
+  <script src="{% static 'lib/angulartics-ga.min.js'%}"></script>
+  <script src="{% static 'lib/jquery-2.1.1.js'%}"></script>
+  <script src="{% static 'lib/jquery.mousewheel.js'%}"></script>
+  <script src="{% static 'lib/perfect-scrollbar.js'%}"></script>
+  <script src="{% static 'lib/pdf.js'%}"></script>
+  <script src="{% static 'lib/toastr.js'%}"></script>
+  <script src="{% static 'lib/angular-resource.js'%}"></script>
+  <script src="{% static 'lib/angular-sanitize.js'%}"></script>
+  <script src="{% static 'lib/angular-route.js'%}"></script>
+  <script src="{% static 'lib/loading-bar.js'%}"></script>
+  <script src="{% static 'lib/angular-dropdowns.js'%}"></script>
+  <script src="{% static 'lib/lodash.js'%}"></script>
+  <script src="{% static 'lib/ng-password-strength.js'%}"></script>
+  <script src="{% static 'lib/ng-flow-standalone.js'%}"></script>
+  <script src="{% static 'lib/angular-progress-arc.js'%}"></script>
+  <script src="{% static 'lib/angular-vertilize.js'%}"></script>
+  <script src="{% static 'lib/angular-awesome-slider.js'%}"></script>
+  <script src="{% static 'lib/angular-cookies.js' %}"></script>
+  <script src="{% static 'lib/angular-pdf.js'%}"></script>
+  <script src="{% static 'lib/angular-perfect-scrollbar.js'%}"></script>
+  <script src="{% static 'lib/angular-scroll.js'%}"></script>
+  <script src="{% static 'lib/ng-file-upload-all.js'%}"></script>
+  <script src="{% static 'lib/angular-animate.min.js'%}"></script>
+  <script src="{% static 'lib/angular-touch.min.js'%}"></script>
+  <script src="{% static 'lib/ui-bootstrap-tpls-2.0.1.min.js'%}"></script>
+  <script src="{% static 'lib/ng-map.js' %}"></script>
+  <script src="{% static 'lib/jssocials-1.4.0/jssocials.min.js' %}"></script>
+  <script src="{% static 'lib/us-phone.min.js' %}"></script>
+  <script src="{% static 'lib/angular-select-state.js' %}"></script>
+  <script src="{% static 'lib/angular-datepicker/angular-datepicker.min.js' %}"></script>
+
+  <!-- Load modules -->
+  <script src="{% static 'js/modules.js'%}"></script>
+
+  <!-- Load directives -->
+  <script src="{% static 'js/directives/css.directive.js'%}"></script>
+  <script src="{% static 'js/directives/domainEmail.directive.js'%}"></script>
+  <script src="{% static 'js/directives/checkPassword.directive.js'%}"></script>
+  <script src="{% static 'js/directives/header.directive.js'%}"></script>
+  <script src="{% static 'js/directives/historical.directive.js'%}"></script>
+  <script src="{% static 'js/directives/notifications.directive.js'%}"></script>
+
+  <!-- Load controllers -->
+  <script src="{% static 'js/controllers/editAccountController.js'%}"></script>
+  <script src="{% static 'js/controllers/editInstallationController.js'%}"></script>
+  <script src="{% static 'js/controllers/createInstallationController.js'%}"></script>
+  <script src="{% static 'js/controllers/calculateCreditsController.js'%}"></script>
+  <script src="{% static 'js/controllers/communityCodeController.js'%}"></script>
+  <script src="{% static 'js/controllers/emailCustomersController.js'%}"></script>
+  <script src="{% static 'js/controllers/FAQController.js'%}"></script>
+  <script src="{% static 'js/controllers/forgotPasswordController.js'%}"></script>
+  <script src="{% static 'js/controllers/homeController.js'%}"></script>
+  <script src="{% static 'js/controllers/mainController.js'%}"></script>
+  <script src="{% static 'js/controllers/portalController.js'%}"></script>
+  <script src="{% static 'js/controllers/communityPortalController.js'%}"></script>
+  <script src="{% static 'js/controllers/installationPortalController.js'%}"></script>
+  <script src="{% static 'js/controllers/installationTransactionsController.js'%}"></script>
+  <script src="{% static 'js/controllers/signDealModalController.js'%}"></script>
+  <script src="{% static 'js/controllers/rejectSaleModalController.js'%}"></script>
+  <script src="{% static 'js/controllers/sellerController.js'%}"></script>
+  <script src="{% static 'js/controllers/setupSellerFundingController.js'%}"></script>
+
+  <script src="{% static 'js/controllers/setupBeneficialOwnerController.js'%}"></script>
+  <script src="{% static 'js/controllers/certifyOwnershipController.js'%}"></script>
+
+  <script src="{% static 'js/controllers/uploadVerificationDocumentController.js'%}"></script>
+  <script src="{% static 'js/controllers/signInController.js'%}"></script>
+  <script src="{% static 'js/controllers/signUpController.js'%}"></script>
+  <script src="{% static 'js/controllers/verifyDepositsController.js'%}"></script>
+
+  <!-- Top-level -->
+  <script src="{% static 'js/services.js'%}"></script>
+  <script src="{% static 'js/filter.js'%}"></script>
+  <script src="{% static 'js/app.js'%}"></script>
+  {% endcompress %}
+  <script src="https://cdn.dwolla.com/1/dwolla.js"></script>
+  <footer>
+    <div class="faq-link">
+      Any further questions? See <a href="/#/FAQ">our FAQ page</a> or contact us at
+      <a href="mailto:info@mysunbuddy.com">info@mysunbuddy.com</a>.
+    </div>
+    <div class="footer-wrapper">
+      <div class="left">
+        <p class="left">MySunBuddy</p>
+        <a target="_blank" href="https://www.google.com/maps/place/1+Center+Plz+%23320,+Boston,+MA+02108/@42.3601477,-71.0626978,17z/data=!4m5!3m4!1s0x89e370852f80e375:0x774cb871f4fa7a5d!8m2!3d42.3601477!4d-71.0605091">
+          1 Center Plaza, Suite 320
+          <br>Boston, MA 02108
+        </a>
+      </div>
+
+      <div class="right">
+        <ul>
+          <li>
+            <a target="_blank" href="javascript:;" data-ng-click="openPdf(terms)">Terms of Use</a>
+          </li>
+          <li>
+            <a target="_blank" href="javascript:;" data-ng-click="openPdf(privacy)">Privacy Policy</a>
+          </li>
+        </ul>
+
+        <ul>
+          <li>
+            <a target="_blank" href="https://twitter.com/mysunbuddy">Twitter</a>
+          </li>
+          <li>
+            <a href="mailto:info@mysunbuddy.com">Email</a>
+          </li>
+          <li>
+            <a target="_blank" href="https://www.linkedin.com/company/mysunbuddy">LinkedIn</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>

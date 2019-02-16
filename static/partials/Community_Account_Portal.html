@@ -1,0 +1,37 @@
+<div class="dashboard">
+	<header></header>
+		<div class="installation-header">
+			<h2 class="left">{{ installations.length }} Installations</h2>
+			<button class="button-small right" data-ng-click="createInstallation();">Add new</button>
+		</div>
+		<div class="installation-account">
+			<div class="left dwolla-hookup">
+				<h4>Access with Dwolla</h4>
+					<p data-ng-if="!profile.dwolla_account_id">You must add a Dwolla account. Please <a href="{{ dwollaRegisterUrl }}">click here</a> to hook up your Dwolla account.</p>
+					<p data-ng-if="profile.dwolla_account_id && profile.refresh_token">You have a Dwolla account.</p>
+					<p data-ng-if="profile.dwolla_account_id && !profile.refresh_token">Your Dwolla authentication has expired. Please login with them <a href="{{ dwollaLoginUrl }}">here</a>.</p>
+				<h4 data-ng-if="profile.dwolla_account_id && profile.refresh_token">Funding source</h4>
+					<p data-ng-if="!profile.funding_id && profile.refresh_token">You also need a verified funding source on your Dwolla account.</p>
+					<p data-ng-if="profile.funding_id && profile.refresh_token">Your funding source is {{ profile.funding_source_name }}.</p>
+			</div>
+		</div>
+		<table class="panel">
+			<tr class="panel-header">
+				<td id="name">Installation Name</td>
+				<td>Community Code</td>
+				<td id="zip">Zip Code</td>
+				<!-- <td>kWh Used</td> TODO -->
+				<td id="percent">Percent Committed</td>
+				<td></td>
+			</tr>
+			<tr data-ng-repeat="installation in installations">
+				<td id="name">{{ installation.info.name }}</td>
+				<td>{{ installation.info.community_code }}</td>
+				<td id="zip">{{ installation.info.zip_code }}</td>
+				<td id="percent">75%</td>
+				<td id="button">
+					<button class="button-alt" type="submit" data-ng-click="viewSingleInstallation(installation);">View</button>
+				</td>
+			</tr>
+		</table>
+</div>

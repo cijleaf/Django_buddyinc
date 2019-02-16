@@ -1,0 +1,7 @@
+Hi {{ deal.buyer.name }},
+
+You have agreed to buy approximately {{ deal.quantity }} credits per month from {{ deal.seller.name }}.
+
+Thank you for using MySunBuddy! Enjoy your savings,
+
+MySunBuddy, Inc.

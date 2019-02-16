@@ -1,0 +1,330 @@
+{% extends "account/base.html" %}
+{% load staticfiles %}
+{% block content %}
+
+    <p class="pull-right"><a href="/">Back to main site</a></p>
+    <br>
+    <h1>ACCOUNT STATS</h1>
+    <p>Number of accounts (total):   {{ number_of_accounts }}</p>
+    <p>Number of completed accounts:   {{ number_of_completed_accounts }}</p>
+    <br>
+    <a href="/admin/view_accounts" class="admin-button">VIEW ALL ACCOUNTS</a>
+    <br>
+    <br>
+    {% if manual_credit_accounts %}
+        <h2>Accounts requiring manual credit review</h2>
+        <br>
+        <table width="100%" class="admin-table">
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Role
+                </th>
+                <th>
+                    Average Monthly Credit
+                </th>
+                <th>
+                    Percent to sell
+                </th>
+                <th>
+                    Credit to sell
+                </th>
+                <th>
+                    Reason for review
+                </th>
+            </tr>
+            {% for account in manual_credit_accounts %}
+            <tr>
+                <td>
+                    {{ account.name }}
+                </td>
+                <td>
+                    {{ account.email }}
+                </td>
+                <td>
+                    {{ account.role | upper }}
+                </td>
+                <td align="right">
+                    {{ account.average_monthly_credit }}
+                </td>
+                <td align="right">
+                    {{ account.credit_to_sell_percent }}%
+                </td>
+                <td align="right">
+                    {{ account.credit_to_sell }}
+                </td>
+                <td>
+                    {{ account.get_formatted_credit_review_reason }}
+                </td>
+                <td>
+                    {% if account.credit_to_sell %}
+                        <form method="POST" action="{% url 'rest_framework:view_set_account_credits' account.id %}">
+                        {% csrf_token %}<input type="submit" value="Edit Monthly Credits"></form>
+                    {% else %}
+                        <form method="POST" action="{% url 'rest_framework:view_set_account_credits' account.id %}">
+                        {% csrf_token %}<input type="submit" value="Set Monthly Credits"></form>
+                    {% endif %}
+                    <form method="POST" action="{% url 'rest_framework:revert_from_manual' account.id %}">
+                        {% csrf_token %}<input type="submit" value="Revert back to UtilityAPI"></form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <h4 style="font-style: italic">No accounts requiring manual credit review</h4>
+    {% endif %}
+    <br>
+    <br>
+    <h1>TRANSACTIONS</h1>
+    {% if incomplete_transactions %}
+        <h2>Transactions pending administrator action</h2>
+        <br>
+        <table width="100%" class="admin-table">
+            <tr>
+                <th>
+                    Buyer
+                </th>
+                <th>
+                    Seller
+                </th>
+                <th>
+                    Amount
+                </th>
+                <th>
+                    Fee
+                </th>
+                <th>
+                    Created on
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+            {% for transaction in incomplete_transactions %}
+            <tr>
+                <td>
+                    {{ transaction.deal.buyer.email }}
+                </td>
+                <td>
+                    {{ transaction.deal.seller.email }}
+                </td>
+                <td>
+                    {{ transaction.paid_to_seller }}
+                </td>
+                <td>
+                    {{ transaction.fee }}
+                </td>
+                <td>
+                    {{transaction.created_on|date:"SHORT_DATE_FORMAT"}} {{transaction.created_on|time:"h:i a"}}
+                </td>
+                <td>
+                  <form method="POST" action="{% url "rest_framework:cancel_transaction" transaction.id %}" class="cancel-trans-frm">
+                  {% csrf_token %}<input type="submit" value="Cancel"></form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    <br>
+    <p>
+        <form method="POST" action="{% url "rest_framework:execute_transactions" %} ">
+            {% csrf_token %}<input type="submit" value="Execute All Transactions">
+        </form>
+    </p>
+    {% else %}
+        <h4 style="font-style: italic">No transactions pending admin action</h4>
+    {% endif %}
+    <br>
+    <br>
+    {% if transactions_in_process %}
+        <h2>Transactions being processed by Dwolla</h2>
+        <br>
+        <table width="100%" class="admin-table">
+            <tr>
+                <th>
+                    Buyer
+                </th>
+                <th>
+                    Seller
+                </th>
+                <th>
+                    Amount
+                </th>
+                <th>
+                    Fee
+                </th>
+                <th>
+                    Dwolla Status
+                </th>
+                <th>
+                    Created on
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+            {% for transaction in transactions_in_process %}
+            <tr>
+                <td>
+                    {{ transaction.deal.buyer.email }}
+                </td>
+                <td>
+                    {{ transaction.deal.seller.email }}
+                </td>
+                <td>
+                    {{ transaction.paid_to_seller }}
+                </td>
+                <td>
+                    {{ transaction.fee }}
+                </td>
+                <td>
+                    {{ transaction.status }}
+                </td>
+                <td>
+                    {{transaction.created_on|date:"SHORT_DATE_FORMAT"}} {{transaction.created_on|time:"h:i a"}}
+                </td>
+
+                <td>
+                  <form method="POST" action="{% url "rest_framework:cancel_transaction" transaction.id %}" class="cancel-trans-frm">
+                  {% csrf_token %}<input type="submit" value="Cancel"></form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <h4 style="font-style: italic">No transactions currently being processed by Dwolla.</h4>
+    {% endif %}
+    <br>
+    <br>
+    {% if failed_transactions %}
+        <h2>Failed Dwolla transactions</h2>
+        <br>
+        <table width="100%" class="admin-table">
+            <tr>
+                <th>
+                    Buyer
+                </th>
+                <th>
+                    Seller
+                </th>
+                <th>
+                    Amount
+                </th>
+                <th>
+                    Fee
+                </th>
+                <th>
+                    Dwolla Status
+                </th>
+            </tr>
+            {% for transaction in failed_transactions %}
+            <tr>
+                <td>
+                    {{ transaction.deal.buyer.email }}
+                </td>
+                <td>
+                    {{ transaction.deal.seller.email }}
+                </td>
+                <td>
+                    {{ transaction.paid_to_seller }}
+                </td>
+                <td>
+                    {{ transaction.fee }}
+                </td>
+                <td>
+                    {{ transaction.status }}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+    <br>
+    <br>
+    <br>
+    <p><h1>COMMUNITY SOLAR ACCOUNTS</h1></p>
+    {% if community_solar_accounts %}
+        <br>
+            <table width="100%" class="admin-table">
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Email
+                    </th>
+                </tr>
+                {% for account in community_solar_accounts %}
+                <tr>
+                    <td>
+                        {{ account.name }}
+                    </td>
+                    <td>
+                        {{ account.email }}
+                    </td>
+                </tr>
+                {% empty %}
+                    <i><h3>No community solar accounts</h3></i>
+                {% endfor %}
+            </table>
+    {% else %}
+        <i><h3>No community solar accounts created.</h3></i>
+    {% endif %}
+    <br>
+    <button id="modalButton">Create New Account</button>
+    <!-- The Modal -->
+    <div id="csaModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content" style="margin:5%">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>Add Community Solar Facility Account</h2>
+            </div>
+            <form class="modal-body" method="POST" action="{% url "rest_framework:add_community_solar" %} ">
+                {% csrf_token %}
+                <p>
+                    <input type="text" placeholder="Name" name="name" required="true">
+                </p>
+                <br>
+                <p>
+                    <input type="text" placeholder="Address" name="address" required="true">
+                </p>
+                <br>
+                <p>
+                    <input type="text" placeholder="City" name="city" required="true">
+                </p>
+                <br>
+                <p>
+                    <input type="text" placeholder="State" name="state" required="true">
+                </p>
+                <br>
+                <p>
+                    <input type="text" placeholder="Zip Code" name="zip_code" required="true">
+                </p>
+                <br>
+                <br>
+                <p>
+                    <input type="text" placeholder="Email" name="email" required="true">
+                </p>
+                <br>
+                <p>
+                    <input type="text" placeholder="Temporary Password" name="password">
+                </p>
+                <br>
+                <p class="pull-right">
+                    <input type="submit" value="Submit">
+                </p>
+                <br>
+            </form>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+
+{% endblock %}

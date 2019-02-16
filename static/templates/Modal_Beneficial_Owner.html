@@ -1,0 +1,95 @@
+<div class="modal-container white">
+  <div class="modal-general no-error">
+    <form name="setupBeneficialForm" novalidate>
+      <a href="#" class="close right" data-ng-click="cancel()">
+        <img src="static/assets/images/icons/icon-close.svg"/>
+      </a>
+      <h4>Beneficial Owner information</h4>
+
+      <div class="row">
+        <div class="input-field col-6">
+          <input type="text" data-ng-model="profile.beneficial_first_name" ng-required="true"
+                 name="beneficial_first_name"/>
+          <span class="floating-label"
+                ng-class="{'error':  setupBeneficialForm.beneficial_first_name.$invalid && submitted}">First name</span>
+          <p class="error-info" data-ng-if="setupBeneficialForm.beneficial_first_name.$error.required && submitted">
+            Beneficial First name is required</p>
+        </div>
+
+        <div class="input-field col-6">
+          <input type="text" data-ng-model="profile.beneficial_last_name" ng-required="true"
+                 name="beneficial_last_name"/>
+          <span class="floating-label"
+                ng-class="{'error':  setupBeneficialForm.beneficial_last_name.$invalid && submitted}">Last name</span>
+          <p class="error-info" data-ng-if="setupBeneficialForm.beneficial_last_name.$error.required && submitted">
+            Beneficial Last name is required</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col-6">
+          <datepicker date-format="MM/dd/yyyy">
+              <input data-ng-model="profile.beneficial_date_of_birth" ng-required="true" name="business_DOB"/>
+          </datepicker>
+          <span class="floating-label" ng-class="{'error':  setupBeneficialForm.business_DOB.$invalid && submitted}">Date of birth</span>
+          <p class="error-info error-dob" data-ng-if="setupBeneficialForm.business_DOB.$error.required && submitted">Date of
+            birth is required</p>
+        </div>
+
+        <div class="input-field col-6">
+          <input type="text" data-ng-model="profile.beneficial_ssn" ng-required="true" name="beneficial_ssn" pattern="(^\d{3}-\d{2}-\d{4}$)"/>
+          <span class="floating-label" ng-class="{'error': setupBeneficialForm.business_ssn.$invalid && submitted}">
+              Full SSN</span>
+          <p class="error-info"
+             data-ng-if="(setupBeneficialForm.beneficial_ssn.$error.required || setupBeneficialForm.beneficial_ssn.$invalid) && submitted">Valid SSN required</p>
+        </div>
+      </div>
+
+      <div class="row clearfix">
+        <div class="input-field col-12">
+          <input type="text" data-ng-model="profile.beneficial_address" ng-required="true"
+                 name="beneficial_address"/>
+          <span class="floating-label"
+                ng-class="{'error':  setupBeneficialForm.beneficial_address.$invalid && submitted}">Address</span>
+          <p class="error-info" data-ng-if="setupBeneficialForm.beneficial_address.$error.required && submitted">
+            Address is required</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col-6">
+          <input type="text" data-ng-model="profile.beneficial_city" ng-required="true" name="beneficial_city"/>
+          <span class="floating-label"
+                ng-class="{'error':  setupBeneficialForm.beneficial_city.$invalid && submitted}">City</span>
+          <p class="error-info" data-ng-if="setupBeneficialForm.beneficial_city.$error.required && submitted">City is
+            required</p>
+        </div>
+
+        <div class="input-field col-6">
+          <select-state model="profile.beneficial_state" ng-required="true"></select-state>
+          <span class="floating-label"
+                ng-class="{'error': !profile.beneficial_state && submitted, 'floating-label-float': profile.beneficial_state}">State</span>
+          <p class="error-info" data-ng-if="!profile.beneficial_state && submitted">The state is required.</p>
+        </div>
+      </div>
+
+      <div class="row clearfix">
+        <div class="input-field col-12">
+          <input type="text" data-ng-model="profile.beneficial_zip_code" ng-required="true"
+                 name="beneficial_zip_code" maxlength="100"
+                 pattern="(\d{5}([\-]\d{4})?)"/>
+          <span class="floating-label"
+                ng-class="{'error': setupBeneficialForm.beneficial_zip_code.$invalid && submitted, 'floating-label-float': setupBeneficialForm.beneficial_zip_code.$viewValue}">Zip</span>
+          <p class="error-info"
+             data-ng-if="(setupBeneficialForm.beneficial_zip_code.$error.required || setupBeneficialForm.beneficial_zip_code.$invalid) && submitted">
+            The zip
+            code is required.</p>
+        </div>
+      </div>
+
+      <div class="button-container">
+        <button class="button-large" type="submit" data-ng-click="submitBeneficialOwner()">Save</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,5 @@
+Hello {{ customer.firstName }},
+
+Your account has been activated!
+
+If you have any questions, please contact support at: info@mysunbuddy.com

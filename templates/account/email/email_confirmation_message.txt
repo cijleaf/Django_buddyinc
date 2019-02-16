@@ -1,0 +1,8 @@
+{% load account %}{% user_display user as user_display %}{% load i18n %}{% autoescape off %}{% blocktrans with site_name="MySunBuddy" site_domain="mysunbuddy.com" site_email="info@mysunbuddy.com"%}Greetings from {{ site_name }}!
+
+Welcome to the MySunBuddy solar marketplace, where everyone can share the the benefits of cleaner solar power (and save money, too!). Get started with your account by logging in at {{ site_domain }}.
+
+If you believe you have received this email in error, please contact us at {{ site_email }}.
+{% endblocktrans %}{% endautoescape %}
+{% blocktrans with site_name="MySunBuddy" site_domain="mysunbuddy.com" %}Thank you from {{ site_name }}!
+{{ site_domain }}{% endblocktrans %}

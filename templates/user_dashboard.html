@@ -1,0 +1,69 @@
+{% extends 'account/base.html' %}
+
+{% block content %}
+<div class="dashboard-wrapper">
+  <p class="pull-right"><a href="/">Back to Home &rarr;</a></p>
+
+  <h2>My Transactions</h2>
+  {% if is_seller %}
+  <p class="pull-right"><b>Balance</b>:
+    {% if balance %}
+      &dollar;{{ balance|floatformat:-2 }}
+    {% else %}
+      &dollar;0
+    {% endif %}</p>
+  {% endif %}
+
+  <p>Please select a status by clicking</p>
+  <ul class="filter-list">
+    {% if request.GET.status %}
+      <li><a href="/dashboard/">Any Status</a></li>
+    {% else %}
+      <li class="active"><a href="#">Any Status</a></li>
+    {% endif %}
+
+    {% for status, status_title in status_filter_list %}
+      {% ifequal request.GET.status status %}
+        <li class="active"><a href="#">{{ status_title }}</a></li>
+      {% else %}
+        <li><a href="?status={{ status }}">{{ status_title }}</a></li>
+      {% endifequal %}
+    {% endfor %}
+  </ul>
+
+  <p class="note">* Transactions will be processed on the 15th of the month</p>
+  <table width="100%" class="admin-table">
+      <tr>
+          <th>Buyer</th>
+          <th>Seller</th>
+          <th>Amount</th>
+          <th>Fee</th>
+          <th>Dwolla Status</th>
+          <th>Created on</th>
+      </tr>
+      {% for t in transactions %}
+      <tr>
+          <td>{{ t.deal.buyer.email }}</td>
+          <td>{{ t.deal.seller.email }}</td>
+          <td>{{ t.paid_to_seller }}</td>
+          <td>{{ t.fee }}</td>
+          <td>{{ t.status }}</td>
+          <td>{{t.created_on|date:"SHORT_DATE_FORMAT"}} {{ t.created_on|time:"h:i a" }}</td>
+
+          {% if t.is_cancelable_status %}
+          <td>
+            <form method="POST" action="{% url "rest_framework:cancel_transaction" t.id %}" class="cancel-trans-frm">
+              {% csrf_token %}
+              <input type="submit" value="Cancel">
+            </form>
+          </td>
+          {% endif %}
+      </tr>
+      {% empty %}
+        <tr>
+          <td colspan="6" align="center">No transactions</td>
+        </tr>
+      {% endfor %}
+  </table>
+</div>
+{% endblock %}

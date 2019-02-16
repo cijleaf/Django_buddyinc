@@ -1,0 +1,6 @@
+Hello {{ customer.firstName }},
+
+A bank account {{ resource.name }} was verified on {{ today_date }}.
+
+If you have any questions or concerns about this bank account being verified please contact support at (617) 934-4847 or support@mysunbuddy.com.
+

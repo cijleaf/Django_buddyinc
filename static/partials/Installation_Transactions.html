@@ -1,0 +1,56 @@
+<div class="sign-up">
+	<header class="clearfix"></header>
+  <!--/ header -->
+  <div class="main-container">
+  	<div class="breadcrumb">
+    	<h2>INSTALLATION TRANSACTIONS</h2>
+    </div>
+    <!--/ .breadcrumb -->
+    <div class="widget">
+      <div class="widget-content widget-content--seller">
+      	<div class="flow-content">
+        	<h3>{{ installation.name }}</h3>
+            <div class="panel-group">
+                <!--/ .panel -->
+                <div class="panel panel-payment-method">
+                    <!--/ .panel-header -->
+                    <div class="panel-body clearfix">
+                      <table width="100%">
+                        <tr>
+                          <th><i>DATE</i></th>
+                          <th><i>BUYER</i></th>
+                          <th><i>AMOUNT</i></th>
+                          <th><i>STATUS</i></th>
+                        </tr>
+                        <tr data-ng-repeat="transaction in transactions">
+                          <td>{{ transaction.info.date }}</td>
+                          <td>{{ transaction.info.buyer }}</td>
+                          <td>${{ transaction.info.amount | number:2 }}</td>
+                          <td>{{ transaction.info.status | uppercase }}</td>
+                        </tr>
+                      </table>
+                      <br>
+                      <br>
+                      <div class="pull-left">
+                        <p><a href="javascript:;" class="icon btn btn-primary" data-ng-if="offset!=0" data-ng-click="viewPreviousTransactions();">PREVIOUS</a></p>
+                      </div>
+                      <div class="pull-right">
+                        <p><a href="javascript:;" class="icon btn btn-primary" data-ng-if="!(transactions.length<limit)" data-ng-click="viewNextTransactions();">VIEW NEXT</a></p>
+                      </div>
+                    </div>
+                    <!--/ .panel-body -->
+                </div>
+                <!--/ .panel -->
+            </div>
+        </div>
+        <!--/ .flow-footer -->
+      </div>
+      <!--/ .widget-content -->
+    </div>
+    <!--/ .widget -->
+          </form>
+  </div>
+  <!--/ .main-container -->
+  
+</div>
+<!--/ .sign-up -->

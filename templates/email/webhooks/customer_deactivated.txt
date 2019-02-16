@@ -1,0 +1,5 @@
+Hello {{ customer.firstName }},
+
+Your account has been deactivated!
+
+If you have any questions, please contact support at: support@mysunbuddy.com

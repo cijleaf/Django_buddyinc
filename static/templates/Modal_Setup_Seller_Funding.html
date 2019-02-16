@@ -1,0 +1,180 @@
+<div class="modal-container white">
+  <div class="modal-general no-error">
+    <form name="setupSellerFundingForm" novalidate>
+      <a href="#" class="close right" data-ng-click="cancel()">
+        <img src="static/assets/images/icons/icon-close.svg"/>
+      </a>
+      <h4 class="seller-signup-title">Seller {{ profile.dwolla_customer_type }} information </h4>
+
+
+      <div ng-if="profile.dwolla_customer_type == 'individual'">
+        <div class="input-field">
+          <datepicker date-format="MM/dd/yyyy">
+              <input data-ng-model="profile.controller_date_of_birth" ng-required="true" name="individual_DOB"/>
+          </datepicker>
+          <span class="floating-label preselected-floating-label"
+                ng-class="{'error': setupSellerFundingForm.individual_DOB.$invalid && submitted}">Date of birth</span>
+          <p class="error-info error-dob" data-ng-if="setupSellerFundingForm.individual_DOB.$error.required && submitted">Date of
+            birth is required</p>
+        </div>
+
+        <div class="input-field">
+          <input type="text" data-ng-model="profile.controller_ssn" id="ssn" ng-required="true" name="individual_ssn"/>
+          <span class="floating-label" ng-if="profile.current_status != 'retry'" ng-class="{'error': setupSellerFundingForm.individual_ssn.$invalid && submitted}">
+                  SSN (last 4 digits)</span>
+            <span class="floating-label" ng-if="profile.current_status == 'retry'" ng-class="{'error': setupSellerFundingForm.individual_ssn.$invalid && submitted}">
+              Full SSN</span>
+
+          <p class="error-info" data-ng-if="setupSellerFundingForm.individual_ssn.$error.required && submitted">SSN is
+            required</p>
+        </div>
+      </div>
+
+
+      <div ng-if="profile.dwolla_customer_type == 'business'">
+        <div class="row">
+          <div class="input-field col-12">
+            <input type="text" data-ng-model="profile.business_name" ng-required="true" name="business_name"/>
+            <span class="floating-label" ng-class="{'error': setupSellerFundingForm.business_name.$invalid && submitted}">Business name</span>
+            <p class="error-info" data-ng-if="setupSellerFundingForm.business_name.$error.required && submitted">Business
+              name is required</p>
+          </div>
+        </div>
+
+        <div class="row clearfix">
+          <div class="input-field col-6">
+            <select data-ng-model="profile.business_type"
+                    ng-options="item.id as item.name for item in businessTypes" ng-required="true"
+                    name="business_type">
+              <option value="">Select business type</option>
+            </select>
+            <p class="error-info" data-ng-if="setupSellerFundingForm.business_type.$error.required && submitted">Business
+              Type is required</p>
+          </div>
+          <div class="input-field col-6">
+            <input type="text" data-ng-model="profile.ein" id="ein" ng-required="true" name="ein"
+                   pattern="(^\d{2}-?\d{7}$)"/>
+            <span class="floating-label" ng-class="{'error':  setupSellerFundingForm.ein.$invalid && submitted}">EIN</span>
+            <p class="error-info" data-ng-if="setupSellerFundingForm.ein.$error.required && submitted">EIN is required.</p>
+            <p class="error-info"
+               data-ng-if="!setupSellerFundingForm.ein.$error.required && setupSellerFundingForm.ein.$error.pattern && submitted">
+              EIN is not valid format.</p>
+          </div>
+        </div>
+        <div class="row clearfix">
+          <div class="input-field col-12">
+            <select data-ng-model="profile.business_classification" name="business_class"
+                    ng-options="item.id as item.name group by item.category for item in businessClassifications"
+                    ng-required="true">
+              <option value="">Select business classification</option>
+            </select>
+            <p class="error-info" data-ng-if="setupSellerFundingForm.business_class.$error.required && submitted">Business
+              Classification is required</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <strong>Controller information</strong>
+        </div>
+
+        <div class="row">
+          <div class="input-field col-6">
+            <input type="text" data-ng-model="profile.controller_first_name" ng-required="true"
+                   name="controller_first_name"/>
+            <span class="floating-label"
+                  ng-class="{'error':  setupSellerFundingForm.controller_first_name.$invalid && submitted}">First name</span>
+            <p class="error-info" data-ng-if="setupSellerFundingForm.controller_first_name.$error.required && submitted">
+              Controller First name is required</p>
+          </div>
+
+          <div class="input-field col-6">
+            <input type="text" data-ng-model="profile.controller_last_name" ng-required="true"
+                   name="controller_last_name"/>
+            <span class="floating-label"
+                  ng-class="{'error':  setupSellerFundingForm.controller_last_name.$invalid && submitted}">Last name</span>
+            <p class="error-info" data-ng-if="setupSellerFundingForm.controller_last_name.$error.required && submitted">
+              Controller Last name is required</p>
+          </div>
+        </div>
+
+        <div class="row clearfix">
+          <div class="input-field col-12">
+            <input type="text" data-ng-model="profile.controller_job_title" ng-required="true" name="job_title"/>
+            <span class="floating-label"
+                  ng-class="{'error':  setupSellerFundingForm.job_title.$invalid && submitted}">Job title</span>
+            <p class="error-info" data-ng-if="setupSellerFundingForm.job_title.$error.required && submitted">Job Title is
+              required</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col-6">
+            <datepicker date-format="MM/dd/yyyy">
+              <input data-ng-model="profile.controller_date_of_birth" ng-required="true" name="business_DOB"/>
+            </datepicker>
+            <span class="floating-label" ng-class="{'error':  setupSellerFundingForm.business_DOB.$invalid && submitted}">Date of birth</span>
+            <p class="error-info error-dob" data-ng-if="setupSellerFundingForm.business_DOB.$error.required && submitted">Date of
+              birth is required</p>
+          </div>
+
+          <div class="input-field col-6">
+            <input type="text" data-ng-model="profile.controller_ssn" ng-required="true" name="business_ssn"/>
+
+            <span class="floating-label" ng-if="profile.current_status != 'retry'" ng-class="{'error': setupSellerFundingForm.business_ssn.$invalid && submitted}">
+                  SSN (last 4 digits)</span>
+            <span class="floating-label" ng-if="profile.current_status == 'retry'" ng-class="{'error': setupSellerFundingForm.business_ssn.$invalid && submitted}">
+              Full SSN</span>
+            <p class="error-info" data-ng-if="setupSellerFundingForm.business_ssn.$error.required && submitted">SSN is
+              required</p>
+          </div>
+        </div>
+
+        <div class="row clearfix">
+          <div class="input-field col-12">
+            <input type="text" data-ng-model="profile.controller_address" ng-required="true"
+                   name="controller_address"/>
+            <span class="floating-label"
+                  ng-class="{'error':  setupSellerFundingForm.controller_address.$invalid && submitted}">Address</span>
+            <p class="error-info" data-ng-if="setupSellerFundingForm.controller_address.$error.required && submitted">
+              Address is required</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col-6">
+            <input type="text" data-ng-model="profile.controller_city" ng-required="true" name="controller_city"/>
+            <span class="floating-label"
+                  ng-class="{'error':  setupSellerFundingForm.controller_city.$invalid && submitted}">City</span>
+            <p class="error-info" data-ng-if="setupSellerFundingForm.controller_city.$error.required && submitted">City is
+              required</p>
+          </div>
+
+          <div class="input-field col-6">
+            <select-state model="profile.controller_state" ng-required="true"></select-state>
+            <span class="floating-label"
+                  ng-class="{'error': !profile.controller_state && submitted, 'floating-label-float': profile.controller_state}">State</span>
+            <p class="error-info" data-ng-if="!profile.controller_state && submitted">The state is required.</p>
+          </div>
+        </div>
+
+        <div class="row clearfix">
+          <div class="input-field col-12">
+            <input type="text" data-ng-model="profile.controller_zip_code" ng-required="true"
+                   name="controller_zip_code" maxlength="100"
+                   pattern="(\d{5}([\-]\d{4})?)"/>
+            <span class="floating-label"
+                  ng-class="{'error': setupSellerFundingForm.controller_zip_code.$invalid && submitted, 'floating-label-float': setupSellerFundingForm.controller_zip_code.$viewValue}">Zip</span>
+            <p class="error-info"
+               data-ng-if="(setupSellerFundingForm.controller_zip_code.$error.required || setupSellerFundingForm.controller_zip_code.$invalid) && submitted">
+              The zip
+              code is required.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="button-container">
+        <button class="button-large" type="submit" data-ng-click="setupSellerFunding()">Save</button>
+      </div>
+    </form>
+  </div>
+</div>

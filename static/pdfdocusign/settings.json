@@ -1,0 +1,11 @@
+{
+    "username": "testgre2@hotmail.com",
+    "password": "topCoderDocuSign",
+    "integratorKey": "TEST-94dcb19f-c36e-497b-a535-754280b1f80d",
+    "templateId": "502930c2-c140-446f-8c82-1f9ca22b7e5e",
+    "roleName": "Signer",
+    "emailSubject": "API call for signature request",
+    "emailBlurb": "This comes from Python",
+    "returnUrl": "http://localhost:8000/docusign/download",
+    "outputfolder": "/tmp"
+}

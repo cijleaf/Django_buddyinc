@@ -1,0 +1,25 @@
+{% extends "account/base.html" %}
+{% load staticfiles %}
+{% block content %}
+
+<p><h2>SET MANUAL CREDITS FOR ACCOUNT</h2></p>
+<br>
+<p>By setting average monthly credit here, you will override the (negative) value for monthly credit calculated from API bills.</p>
+<p>Setting a new percentage of credit to sell is optional.</p>
+
+    <form method="POST" action="{% url 'rest_framework:edit_account_credits' account.id %}" class="">
+      {% csrf_token %}
+      <div class="form-group">
+          <label for="average_monthly_credit"> New Average Monthly Credit (required) *: </label>
+          <br>
+          <input type="number" min="0" required id="average_monthly_credit" name="average_monthly_credit" value="{{ account.average_monthly_credit }}">
+      </div>
+      <div class="form-group">
+          <label for="credit_to_sell_percent"> Percentage of credit to sell (default 100%): </label>
+          <br>
+          <input type="number" min="0" max="100" id="credit_to_sell_percent" name="credit_to_sell_percent" value="{{ account.credit_to_sell_percent }}">
+      </div>
+      <input type="submit" class="btn btn-secondary text-uppercase" value="Save" />
+    </form>
+
+{% endblock %}

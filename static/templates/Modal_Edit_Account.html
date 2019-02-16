@@ -1,0 +1,49 @@
+<div class="modal-container white">
+  <div class="modal-general no-error">
+    <form name="editAccountForm">
+      <a href="javascript:;" class="close right" data-ng-click="cancel()">
+        <img src="static/assets/images/icons/icon-close.svg" />
+      </a>
+      <h4>Edit personal information</h4>
+
+      <div class="input-field">
+        <input type="text" data-ng-model="profile.name" id="name" required maxlength="100" />
+        <span class="floating-label">Name</span>
+      </div>
+
+      <div class="input-field">
+        <input type="text" data-ng-model="profile.email" id="email" required maxlength="100" />
+        <span class="floating-label">Email</span>
+      </div>
+
+      <div class="input-field">
+        <input type="text" data-ng-model="profile.phone" id="phone" required maxlength="100" us-phone-directive/>
+        <span class="floating-label">Phone</span>
+      </div>
+
+      <div class="input-field">
+        <input type="text" data-ng-model="profile.address" id="address" required maxlength="200" />
+        <span class="floating-label">Address</span>
+      </div>
+
+      <div class="input-field">
+        <input type="text" data-ng-model="profile.city" id="city" required maxlength="100" />
+        <span class="floating-label">City</span>
+      </div>
+
+      <div class="input-field half left">
+        <select-state model="profile.state" id="state"></select-state>
+        <span class="floating-label" ng-class="{'error': !profile.state && submitted, 'floating-label-float': profile.state}">State</span>
+      </div>
+
+      <div class="input-field half right">
+        <input type="text" data-ng-model="profile.zip_code" id="zip_code" required maxlength="100" pattern="(\d{5}([\-]\d{4})?)"/>
+        <span class="floating-label" ng-class="{'floating-label-float': profile.zip_code}">Zip</span>
+      </div>
+
+      <div class="button-container">
+        <button class="button-large" type="submit" data-ng-click="editAccount();">Save</button>
+      </div>
+    </form>
+  </div>
+</div>

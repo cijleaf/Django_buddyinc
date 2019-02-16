@@ -1,0 +1,62 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* Museo Sans Regular */
+@font-face {
+  font-family: 'MuseoSans';
+  font-style: normal;
+  font-weight: 300;
+  src: url('../assets/fonts/MuseoSans_300.otf') format('opentype');
+}
+@font-face {
+  font-family: 'MuseoSansItalic';
+  font-style: italic;
+  font-weight: 300;
+  src: url('../assets/fonts/MuseoSans_300_Italic.otf') format('opentype');
+}
+@font-face {
+  font-family: 'MuseoSansBold';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../assets/fonts/MuseoSans_700.otf') format('opentype');
+}
+
+/* Museo Sans Rounded */
+@font-face {
+  font-family: 'MuseoSansRounded';
+  font-style: normal;
+  font-weight: 300;
+  src: url('../assets/fonts/MuseoSansRounded-300.otf') format('opentype');
+}
+@font-face {
+  font-family: 'MuseoSansRoundedBold';
+  font-style: normal;
+  font-weight: 900;
+  src: url('../assets/fonts/MuseoSansRounded-900.otf') format('opentype');
+}
+
+/* Bree Serif (Legacy) */
+@font-face {
+    font-family: 'bree_seriflight';
+    src: url('../fonts/bree_serif_light-webfont.eot');
+    src: url('../fonts/bree_serif_light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/bree_serif_light-webfont.woff2') format('woff2'),
+         url('../fonts/bree_serif_light-webfont.woff') format('woff'),
+         url('../fonts/bree_serif_light-webfont.ttf') format('truetype'),
+         url('../fonts/bree_serif_light-webfont.svg#bree_seriflight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'bree_serifregular';
+    src: url('../fonts/breeserif-regular-webfont.eot');
+    src: url('../fonts/breeserif-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/breeserif-regular-webfont.woff2') format('woff2'),
+         url('../fonts/breeserif-regular-webfont.woff') format('woff'),
+         url('../fonts/breeserif-regular-webfont.ttf') format('truetype'),
+         url('../fonts/breeserif-regular-webfont.svg#bree_serifregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}

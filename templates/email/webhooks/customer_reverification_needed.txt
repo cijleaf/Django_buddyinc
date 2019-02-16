@@ -1,0 +1,7 @@
+Hello {{ customer.firstName }},
+
+Additional documentation is required to re-verify your account. Please login and go to settings then upload document to upload a document.
+
+For personal customers, please upload a color copy, non expired US ID, which can include a driver's license, passport, or state ID card.  For business customers, please upload applicable business documentation.
+
+If you have any questions or concerns regarding account verification, please contact support at (617) 934-4847 or support@mysunbuddy.com.

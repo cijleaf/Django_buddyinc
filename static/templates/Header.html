@@ -1,0 +1,50 @@
+<div class="header-wrapper">
+  <div class="logo left">
+    <a href="/#/Landing">
+      <img src="static/assets/images/logo-black.png" alt="MySunBuddy Logo">
+    </a>
+  </div>
+  <!-- Logged In Header -->
+  <div class="nav-loggedin right" data-ng-if="profile">
+    <div class="dropdown-container right" data-ng-class="{'active': dropdown}" data-click-off="dropdown = false;">
+      <div href="javascript:;" class="user-name" data-ng-click="dropdown = !dropdown">
+        {{profile.name}}
+      </div>
+      <div class="dropdown-content">
+        <ul>
+          <li ng-if="profile.is_admin">
+            <a href="/view_pending_transactions">Admin</a>
+          </li>
+          <li ng-if="currentUser.profile.role == 'buyer'">
+            <a href="#/Buyer_Account_Portal">Home</a>
+          </li>
+          <li ng-if="currentUser.profile.role == 'seller'">
+            <a href="#/Seller_Account_Portal">Home</a>
+          </li>
+          <li ng-if="currentUser.profile.role == 'community_solar'">
+            <a href="#/Community_Account_Portal">Home</a>
+          </li>
+          <li ng-if="!profile.loadzone_error">
+            <p data-ng-click="editPersonalInfo();">Edit profile</p>
+          </li>
+          <li>
+            <a href="/dashboard/">Transactions</a>
+          </li>
+          <li>
+            <a href="/accounts/logout">Sign out</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- Logged Out Header -->
+  <div class="nav-login right" data-ng-if="!profile">
+    <ul class="left">
+      <li><a href="javascript:" ng-click="scrollTo('about')">About</a></li>
+      <li><a href="javascript:" ng-click="scrollTo('services')">Services</a></li>
+      <li><a href="javascript:" ng-click="scrollTo('installer')">Contact</a></li>
+      <li><a href="/#/FAQ">FAQ</a></li>
+    </ul>
+    <button class="button-small right" data-ng-click="showSignInModal();">Sign in</button>
+  </div>
+</div>

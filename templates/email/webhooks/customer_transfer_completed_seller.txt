@@ -1,0 +1,14 @@
+Hello {{ customer.firstName }},
+
+The payment initiated from {{ source.firstName }} has completed. Here are the details of this payment:
+
+Transfer Type: Bank Transfer
+Source: {{ source.firstName }} {{ source.lastName }}
+Destination: {{ destination_funding_source.name }}
+Amount: ${{ resource.amount.value }} {{ resource.amount.currency }}
+MySunBuddy Fee: ${{ fees.transactions.0.amount.value }} {{ fees.transactions.0.amount.currency }}
+Net Amount: {{ net_total }} {{ resource.amount.currency }}
+Date Initiated: {{ resource.created }}
+
+
+If you have any questions or concerns about this transfer please contact support at (617) 934-4847 or support@mysunbuddy.com.

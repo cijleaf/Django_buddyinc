@@ -1,0 +1,11 @@
+Hello {{ customer.firstName }},
+
+After 3 attempts we were still unable to complete a micro-transaction on your account. Here are the details:
+
+Transfer Type: {{ resource.type }}
+Account Name: {{ resource.name }}
+Date of Transfer: {{ microdeposit.created }}
+Status: {{ microdeposit.status }}
+
+
+If you have any questions regarding this transaction, please contact support at: info@mysunbuddy.com

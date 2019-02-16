@@ -1,0 +1,267 @@
+<div class="sign-up">
+	<header style="border-bottom:0px;"></header>
+  <div class="main-container" style="margin-top:100px;padding-bottom:20px;">
+    <div class="widget">
+      <div data-ng-if="!profile.loadzone_error">
+        <div class="flow-bar">
+          <ul class="clearfix">
+            <li class="text-center">
+              <a href="javascript:;">
+            	<span class="round">
+              	<span class="icon icon-seller-information"></span>
+              </span>
+                <span ng-if="role=='seller'">Seller</span><span ng-if="role=='buyer'">Buyer</span> Information
+              </a>
+            </li>
+            <li class="text-center" ng-if="role=='seller'">
+              <a href="javascript:;">
+            	<span class="round">
+            		<span class="icon icon-solar-production" ng-class="{'incomplete': !profile.solar_complete}"></span>
+              </span>
+                Solar Percentage
+              </a>
+            </li>
+            <li class="text-center">
+              <a href="javascript:;">
+            	<span class="round">
+            		<span class="icon icon-utility-information" ng-class="{'incomplete': !profile.has_utility_access}"></span>
+              </span>
+                Utility Information
+              </a>
+            </li>
+            <li class="text-center">
+              <a href="javascript:;">
+            	<span class="round">
+            		<span class="icon icon-billing-information" ng-class="{'incomplete': profile.funding_status != 'verified'}"></span>
+              </span>
+                Payment Information
+              </a>
+            </li>
+            <li class="text-center">
+              <a href="javascript:;">
+            	<span class="round">
+            		<span class="icon icon-finish" ng-class="{'incomplete': !profile.complete}"></span>
+              </span>
+                Live!
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="widget-content account-highlights">
+          <ul class="clearfix">
+            <li class="text-center">
+              <h1 style="margin:0;font-size:60px;">{{ profile.active_deals }}</h1>
+              <ng-pluralize count="profile.active_deals" when="{'one': 'Active Deal', 'other': 'Active Deals'}"></ng-pluralize>
+            </li>
+            <li class="text-center" ng-if="role=='seller'">
+              <h1 style="margin:0;font-size:60px;">${{ profile.left | number:2 }}</h1>
+              Credit Remaining
+            </li>
+            <li class="text-center" ng-if="role=='seller'">
+              <h1 style="margin:0;font-size:60px;">${{ profile.earnings | number:2 }}</h1>
+              Earned
+            </li>
+            <li class="text-center" ng-if="role=='buyer'">
+              <h1 style="margin:0;font-size:60px;">${{ profile.savings | number:2 }}</h1>
+              Saved
+            </li>
+          </ul>
+        </div>
+        <div class="widget-content graphic-and-share">
+          <ul>
+            <li class="text-center" style="flex: auto">
+              <img src="static/assets/images/img-energyFlow.svg" alt="Solar Power Graphic" style="display:block;margin: 0 auto;"/>
+            </li>
+            <li class="text-center" style="flex: none; width: 180px" title="{{shouldShowIncompleteProfileTooltip()}}">
+              <p ng-show="profile.complete">Share your contribution to social media</p>
+              <div class="share" data-ng-init="bindJsSocials()" data-ng-class="shouldDisableShareButtons()" style="display: inline-block"></div>
+            </li>
+          </ul>
+        </div>
+        <div class="widget-content widget-content--seller">
+          <div class="flow-content">
+            <h3 style="margin-bottom:60px;">Account Information</h3>
+            <div class="panel-group">
+              <div class="panel panel-user-type">
+                <div class="panel-body clearfix table-layout">
+                  <!-- SELLER -->
+                  <p class="text-center" ng-show="role=='seller' && !profile.complete">Once you have completed your bank and utility information, we'll recommend a percentage of your excess production to sell based on your usage.</p>
+                  <p class="text-center" ng-show="role=='seller' && profile.complete">Based on your usage, we've automatically set you up to sell <strong>{{ solar.value }}%</strong> of your excess solar production. <a ng-click="showSolarPercentSlider = !showSolarPercentSlider">Change this.</a></p>
+
+                  <div id="solar-container" class="well" ng-show="showSolarPercentSlider">
+                    <p class="text-center" ng-hide="role=='buyer'">What percentage of your excess solar production would you like to sell?</p>
+
+                    <div class="slider" ng-hide="role=='buyer'">
+                      <input data-ng-model="solar.value" type="text" id="my-slider-1" data-slider data-options="solar.options" />
+                    </div>
+                    <a class="btn btn-secondary pull-right" data-ng-click="showSolarPercentSlider = !showSolarPercentSlider">Cancel</a>
+                    <a href="javascript:;" ng-hide="role=='buyer'" class="btn btn-secondary pull-right icon icon-next" data-ng-class="{'disabled': !saveButton}" id="save-solar-percentage" data-ng-click="savePercentage();">{{ saveButton ? "Save" : "Saving..." }}</a>
+                  </div>
+                  <div class="button-container" data-ng-class="{'disabled': !profile.complete}" data-ng-if="role=='seller'" style="text-align:center;margin-top:50px;margin-bottom:-120px;">
+                    <button class="button-large" type="submit" href="javascript:;" data-ng-click="toMarketplace();">Sell your solar</button>
+                  </div>
+
+                  <!-- BUYER -->
+                  <p class="text-center" ng-show="role=='buyer' && !profile.complete">Once you have completed your bank and utility information, we'll find you your sun buddy.</p>
+                  <div class="pull-left" ng-show="role=='buyer' && profile.complete && !profile.buyer_automatch && !profile.used_code">
+                    <p>You're all set to buy!</p>
+                    <br>
+                    <a class="btn btn-primary" data-ng-click="enterMarket();" >FIND A SOLAR MATCH</a> -- OR --
+                    <a class="btn btn-primary" data-ng-click="matchCommunitySolar();" >USE A COMMUNITY CODE</a>
+                  </div>
+                  <p class="pull-left" ng-show="role=='buyer' && profile.complete && profile.buyer_automatch">You're all set! Matching you to your sun buddy now.</p>
+                  <p class="pull-left" ng-show="role=='buyer' && profile.complete && profile.used_code">All set, ready to go! Your sun buddy is a community solar facility.</p>
+                </div>
+              </div>
+              <br>
+              <br>
+              <div class="panel panel-seller-information">
+                <div class="panel-header">
+                  <h4 ng-if="role=='seller'">Seller Information</h4>
+                  <h4 ng-if="role=='buyer'">Buyer Information</h4>
+                </div>
+                <div class="panel-body">
+                  <div class="information clearfix">
+                    <dl class="pull-left list list-small">
+                      <dt>Email :</dt>
+                      <dd id="info-email">{{ profile.email }}</dd>
+                      <dt>Password :</dt>
+                      <dd>******</dd>
+                      <dt>Name :</dt>
+                      <dd id="info-name">{{ profile.name }}</dd>
+                      <dt>Phone :</dt>
+                      <dd id="info-phone">{{ profile.phone }}</dd>
+                    </dl>
+                    <dl class="pull-left list list-small">
+                      <dt>Address :</dt>
+                      <dd id="info-address">{{ profile.address }}</dd>
+                      <dt>City :</dt>
+                      <dd id="info-city">{{ profile.city }}</dd>
+                      <dt>State :</dt>
+                      <dd id="info-state">{{ profile.state }}</dd>
+                      <dt>Zip Code :</dt>
+                      <dd id="info-zip_code">{{ profile.zip_code }}</dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+
+              <div class="panel panel-beneficial_owner"
+                   ng-if="role=='seller' && profile.dwolla_customer_type=='business' && profile.current_status == 'verified' ">
+                <div class="panel-header">
+                  <h4>Beneficial Owners</h4>
+                </div>
+                <div class="panel-body clearfix">
+                  <dl class="list list--small">
+
+                    <dt>You have {{ profile.beneficial_count }} beneficial owners. <br><a href="javascript:;" data-ng-click="viewBeneficialDetails()">More details &rarr;</a></dt>
+
+                    <dd><button class="button-small" data-ng-click="setupBeneficialOwner()">Add beneficial owner</button></dd>
+                  </dl>
+                </div>
+              </div>
+
+              <div class="panel panel-payment-method">
+                <div class="panel-header">
+                  <h4>Payment Method</h4>
+                </div>
+
+                <div class="panel-body clearfix" ng-if="profile.current_status == 'suspended'">
+                  <dl class="list list--small">
+                    <dt class="pull-left text-right">
+                      Account verification
+                    </dt>
+                    <dd>
+                      Your account has been suspended. please contact Account Management for more information.
+                    </dd>
+                  </dl>
+                </div>
+
+                <div class="panel-body clearfix" ng-if="profile.current_status == 'document'">
+                  <dl class="list list--small">
+                    <dt class="pull-left text-right" data-ng-if="profile.dwolla_account_id">
+                      Account validation
+                    </dt>
+                    <dd data-ng-if="!documentUploaded">
+                      Your account requires an additional validation step.
+
+                      <div data-ng-show="showDocumentUploadButton">
+                        <button class="button-small" data-ng-click="uploadDocument()">Upload document</button>
+                      </div>
+
+                      <div id="iavContainer"></div>
+                    </dd>
+                    <dd data-ng-if="documentUploaded">
+                      Your document was uploaded and we are verifying your account. Verification takes 1-2 business days. You will receive an email upon completion.
+                    </dd>
+                  </dl>
+                </div>
+
+                <div class="panel-body clearfix" ng-if="isFundableStatus()">
+                  <dl class="list list--small">
+                    <dt class="pull-left text-right" data-ng-if="profile.dwolla_account_id">
+                      Funding source
+                    </dt>
+                    <dd data-ng-if="!profile.funding_id && role == 'buyer'">
+                      <div data-ng-show="showIavSetupButton">
+                        <button class="button-small" data-ng-click="setupIav()">Add funding source</button>
+                      </div>
+
+                      <div id="iavContainer"></div>
+                    </dd>
+                    <dd data-ng-if="!profile.funding_id && role == 'seller'">
+                      <div data-ng-show="showIavSetupButton">
+                        <button class="button-small" data-ng-click="setupIavForSeller()">Add funding source</button>
+                      </div>
+
+                      <div id="iavContainer"></div>
+                    </dd>
+                    <dd data-ng-if="profile.funding_id">
+                      <div class="card-alert" ng-if="profile.funding_status == 'unverified'">
+                        <p>Your funding source is still waiting for verification. You must wait until the deposits actually post to your bank account, which can take 1-2 business days.</p>
+                      </div>
+
+                      <div class="card-alert" ng-if="profile.funding_status == 'verify-micro-deposits'">
+                        <p>Please, provide information about the deposits posted on your bank account.</p>
+
+                        <button class="button-small" data-ng-click="verifyDeposits()">Verify deposits</button>
+                      </div>
+
+                      <div ng-if="profile.funding_status == 'verified'">
+                        Your funding source is {{ profile.funding_source_name }}. <button ng-click="removeFunding()">Remove</button>
+                      </div>
+
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+              <div class="panel panel-payment-method">
+                <div class="panel-header">
+                  <h4>Utility Information</h4>
+                </div>
+                <div class="panel-body clearfix">
+                  <dl class="list list--small">
+                    <dt>Connect your utility account here.</dt>
+                    <dd ng-if="profile.has_utility_access">Utility Provider: {{ profile.utility_provider }}</dd>
+                    <dd ng-if="!profile.has_utility_access && profile.manually_set_credit">
+                      *The average monthly credit that you have available according to your utility bills has raised an error in our system. Please contact us.*</dd>
+                    <!--<dd ng-if="profile.utility_api_uid && !profile.manually_set_credit">Syncing your data! Please refresh the page in fifteen minutes.</dd> -->
+                    <div ng-if="!profile.has_utility_access">
+                      <a href="{{ utilityapiurl }}" id="connect-utility-api">
+                        <img src="/static/i/utilitybutton.png" style='max-height:50px;max-width:200px;' />
+                      </a>
+                    </div>
+                  </dl>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-ng-if="profile.loadzone_error">
+        <div style="font-size: 30px; height: 55vh; color: #aea428;">Thank your for registering! <br/><br/>
+          A staff member from MySunBuddy will be reaching out shortly</div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,3 @@
+A new contract has been signed by {{ deal.seller.get_full_name }} on {{ today }}.
+
+Please see attached.

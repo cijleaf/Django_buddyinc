@@ -1,0 +1,62 @@
+<div class="table-view">
+  <h3>HISTORICAL</h3>
+  <div class="overlay" data-ng-class="{'overlay-buyer': role === 'buyer'}">
+    <table>
+      <tbody>
+        <tr data-ng-repeat="historical in module.historical.list | limitTo: limit.historical" data-ng-click="showMap(historical);">
+          <td class="col-user">
+            <div class="thumbnail">
+              <img data-ng-src="{{historical.thumb}}" src="#" alt="{{historical.name}}" />
+              {{historical.name}}
+            </div>
+          </td>
+          <td>
+            <strong>{{historical.dollar}}</strong>
+            Dollar Amount
+          </td>
+          <td data-ng-if="historical.capacity" class="col-capacity">
+            <strong>{{historical.capacity}}</strong>
+            KW
+          </td>
+          <td class="col-impact" data-ng-if="historical.impact">
+            <strong>{{historical.impact}}</strong>
+            GHG Impact
+          </td>
+          <td class="col-progress" data-ng-if="historical.savings">
+            <div class="progress">
+              <div class="progress-inner" data-ng-style="{'width': historical.savings*100}"></div>
+            </div>
+            Savings
+          </td>
+          <td class="col-clock">
+            <div class="clock">
+              <div data-progress-arc data-size="68" data-stroke="#d2e6de" data-stroke-width="68" data-complete="historical.percent" data-percentage="false" data-text-fill="#7c7c7c" data-text="historical.left" data-suffix="Days Left" data-text-position="14"></div>
+            </div>
+          </td>
+          <td>
+            <dl>
+              <dt>Start Date:</dt>
+              <dd>{{historical.startDate}}</dd>
+              <dt>End Date:</dt>
+              <dd>{{historical.endDate}}</dd>
+              <dt>Days Left:</dt>
+              <dd>{{historical.left}}</dd>
+            </dl>
+          </td>
+          <td class="col-states">
+            <strong class="text-uppercase" data-ng-class="{'active': historical.state === 'active','finished': historical.state === 'finished'}">{{historical.state}}</strong>
+            Status
+          </td>
+          <td class="col-arrow">
+            <span class="icon pull-right icon-arrow"></span>
+          </td>
+        </tr>
+        <!--/ Row -->
+      </tbody>
+    </table>
+    <!-- table -->
+  </div>
+  <br/>
+  <a href="javascript:;" class="btn btn-secondary" data-ng-click="limit.historical=module.historical.list.length" data-ng-show="limit.historical<module.historical.list.length">LOAD MORE</a>
+</div>
+<!--/ .table-view -->

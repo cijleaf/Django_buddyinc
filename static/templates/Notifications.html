@@ -1,0 +1,62 @@
+<div class="bar-progress clearfix">
+  <div class="pull-left chart">
+    <div data-progress-arc data-size="108" data-stroke="#7c7c7c" data-stroke-width="8" data-complete="module.notifications.store.percentage" data-background="#a5cdbd" data-suffix="{{role === 'seller' ? 'LEFT': 'USAGE'}}" data-text-fill="#7c7c7c" data-text-position="16" data-round="true"></div>
+  </div>
+  <ul>
+    <li class="status status--left">
+      <dl>
+        <dt>{{role === 'seller' ? 'LEFT': 'USAGE'}}</dt>
+        <dd>{{module.notifications.store.left}}</dd>
+      </dl>
+    </li>
+    <li class="status">
+      <dl>
+        <dt>{{role === 'seller' ? 'CONTRACTED': 'INITIAL STATE'}}</dt>
+        <dd>{{module.notifications.store.contracted}}</dd>
+      </dl>
+    </li>
+  </ul>
+</div>
+<!--/ .bar-progress -->
+<div class="panel">
+  <div class="panel-header">
+    <h3>NOTIFICATIONS</h3>
+  </div>
+  <!--/ .panel-header -->
+  <div class="panel-body">
+    <ul>
+      <li data-ng-repeat="notification in module.notifications.list">
+        <h5 class="icon" data-ng-class="{'icon-power': notification.state === 'power','icon-agreement': notification.state === 'agreement','icon-dollar': notification.state === 'dollar','icon-reject': notification.state === 'reject','icon-agree': notification.state === 'agree'}" data-ng-bind-html="notification.title">Title</h5>
+        <p data-ng-if="notification.buyername">{{notification.buyername}}</p>
+        <div class="clearfix">
+          <dl>
+            <dt class="icon icon-quantity">Quantity:</dt>
+            <dd>{{notification.quantity}}</dd>
+            <dt class="icon icon-price">Price:</dt>
+            <dd>{{notification.price}}</dd>
+          </dl>
+          <dl class="last" ng-hide="!notification.startDate ||!notification.endDate">
+            <dt>Start Date:</dt>
+            <dd>{{notification.startDate}}</dd>
+            <dt>End Date:</dt>
+            <dd>{{notification.endDate}}</dd>
+          </dl>
+        </div>
+        <div class="button-group text-center" data-ng-if="role === 'seller' && (notification.state === 'power' || notification.state === 'agreement')">
+          <a href="javascript:;" class="btn btn-default" data-ng-if="notification.state === 'power' || notification.state === 'agreement'" data-ng-click="denyDeal(notification);" ng-hide="notification.deny">DECLINE</a>
+          <a href="javascript:;" class="btn btn-primary" data-ng-if="notification.state === 'power'">ACCEPT</a>
+          <a href="javascript:;" class="btn btn-primary btn-large" data-ng-if="notification.state === 'agreement'" data-ng-click="signsDocuments(notification);" ng-hide="notification.deny">Signs Utility Document</a>
+        </div>
+        <!--/ .button-group -->
+        <div class="button-group text-center" data-ng-if="role === 'buyer' && (notification.state === 'agree' || notification.state === 'agreement')">
+          <a href="javascript:;" class="btn btn-default" data-ng-if="notification.state === 'agree' || notification.state === 'agreement'" data-ng-click="denyDeal(notification);" ng-hide="notification.deny">DECLINE</a>
+          <a href="javascript:;" class="btn btn-primary" data-ng-if="notification.state === 'agreement'">CONFIRM</a>
+          <a href="javascript:;" class="btn btn-primary btn-large" data-ng-if="notification.state === 'agree'" data-ng-click="signsDocuments(notification);" ng-hide="notification.deny">Signs Utility Document</a>
+        </div>
+        <!--/ .button-group -->
+      </li>
+    </ul>
+  </div>
+  <!--/ .panel-body -->
+</div>
+<!--/ .panel -->

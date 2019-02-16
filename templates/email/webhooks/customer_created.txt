@@ -1,0 +1,7 @@
+Hello {{ customer.firstName }},
+
+Congrats! Your MySunBuddy account was successfully created.
+
+By creating a MySunBuddy  account you have also agreed to the Dwolla Terms of Service (https://www.dwolla.com/legal/tos/) and Privacy Policy (https://www.dwolla.com/legal/privacy/), and opened a Dwolla account.
+
+If you have any questions or concerns please contact support at (617) 934-4847 or support@mysunbuddy.com.

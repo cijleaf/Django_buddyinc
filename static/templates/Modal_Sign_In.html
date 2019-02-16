@@ -1,0 +1,42 @@
+<div class="modal-container black">
+  <div class="modal-sign-in">
+    <form>
+      <a href="javascript:;" class="close right" data-ng-click="cancel()">
+        <img src="static/assets/images/icons/icon-close.svg" />
+      </a>
+      <h3>Login</h3>
+
+      <!-- Email Field -->
+      <div class="input-field">
+        <input type="text" ng-class="{'error-black': result === 'error'}" data-ng-model="user.login" id="login" data-ng-focus="getFocus();" required />
+        <span class="floating-label" ng-class="{'error': result === 'error'}">Email</span>
+        <p class="error-info" data-ng-if="result === 'error'">The information entered is incorrect</p>
+      </div>
+
+      <!-- Password Field -->
+      <div class="input-field">
+        <input type="password" ng-class="{'error': result === 'error'}" data-ng-model="user.password" id="password" data-ng-focus="getFocus();" required />
+        <span class="floating-label" ng-class="{'error': result === 'error'}">Password</span>
+        <p class="error-info" data-ng-if="result === 'error'">The information entered is incorrect</p>
+      </div>
+
+      <!-- reCAPTCHA -->
+      <script src='//www.google.com/recaptcha/api.js'></script>
+      <div id="recaptcha" class="g-recaptcha" data-sitekey="{{ recaptcha_sitekey }}"></div>
+
+      <div>
+        <p class="error-info throttled">{{waitMessage}}</p>
+      </div>
+
+      <!-- Login Button -->
+      <div class="button-container">
+        <button class="button-large" type="submit" href="javascript:;" data-ng-click="signIn();">Login</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Forgot Password -->
+  <div class="forgot-password">
+    <a href="javascript:;" data-ng-click="showForgotPasswordModal();">Forgot email or password?</a>
+  </div>
+</div>

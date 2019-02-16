@@ -1,0 +1,35 @@
+<div class="modal-container white">
+  <div class="modal-general no-error modal-fluid">
+
+    <a href="#" class="close right" data-ng-click="cancel()">
+      <img src="static/assets/images/icons/icon-close.svg"/>
+    </a>
+    <h4>Beneficial Owners</h4>
+
+    <table class="panel">
+      <tr class="panel-header">
+        <td>Name</td>
+        <td>Date of Birth</td>
+        <td>SSN</td>
+        <td>Address</td>
+        <td>Verification Status</td>
+      </tr>
+      <tr data-ng-repeat="b in beneficial_owners">
+        <td>{{ b.beneficial_first_name }} {{ b.beneficial_last_name }}</td>
+        <td>{{ b.beneficial_date_of_birth }}</td>
+        <td>{{ b.beneficial_ssn }}</td>
+        <td>{{ b.beneficial_address }}, {{ b.beneficial_city }}  {{ b.beneficial_state }} {{ b.beneficial_zip_code }}</td>
+        <td>{{ b.verification_status }}</td>
+        <td>
+
+        </td>
+      </tr>
+    </table>
+
+    <div class="button-container">
+      <p ng-if="cert_status == 'certified' " style="color: #0cc9c7">All Certified</p>
+      <button ng-if="cert_status == 'uncertified' " class="button-small" data-ng-click="certifyOwnership()">Certify</button>
+      <button ng-if="cert_status == 'recertify' " class="button-small" data-ng-click="certifyOwnership()">Recertify</button>
+    </div>
+  </div>
+</div>

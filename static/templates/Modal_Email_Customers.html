@@ -1,0 +1,20 @@
+<div class="modal-container white">
+  <div class="modal-general no-error">
+    <form>
+      <a href="javascript:;" class="close right" data-ng-click="cancel()">
+        <img src="static/assets/images/icons/icon-close.svg" />
+      </a>
+      <h4>Send email</h4>
+      <p style="margin-bottom:40px;line-height:30px;">This message will be sent to all customers currently in an active deal with the installation, from the facility email address.</p>
+
+      <div class="input-field">
+        <input data-ng-model="text" id="text" required></textarea>
+        <span class="floating-label">Message</span>
+      </div>
+
+      <div class="button-container">
+        <button class="button-large" type="submit" data-ng-click="sendEmail()">Send</button>
+      </div>
+    </form>
+  </div>
+</div>

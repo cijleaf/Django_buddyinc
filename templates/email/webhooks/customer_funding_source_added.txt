@@ -1,0 +1,11 @@
+Hello {{ customer.firstName }},
+
+A funding source was added to your account. Here are the details:
+
+    Bank: {{ resource.bankName }}
+    Account: {{ resource.name }}
+    Date: {{ resource.created }}
+
+You’ve agreed that future payments to MySunBuddy will be processed by the Dwolla payment system using bank account PNC. To cancel, send an email to support@mysunbuddy.com.
+
+If you have any questions or concerns about this bank account being added please contact support at (617) 934-4847 or support@mysunbuddy.com.

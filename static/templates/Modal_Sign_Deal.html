@@ -1,0 +1,22 @@
+<div class="modal-container white">
+  <div class="modal-general no-error">
+    <form>
+      <a href="javascript:;" class="close right" data-ng-click="cancel()">
+        <img src="static/assets/images/icons/icon-close.svg" />
+      </a>
+      <h4>Sign deal</h4>
+      <p style="margin-bottom:40px;line-height:30px;">By entering your initials in the textbox below, you are agreeing to the Schedule Z contract.</p>
+
+      <div class="input-field">
+        <input type="text" data-ng-model="initials" id="name" required maxlength="50" />
+        <span class="floating-label">Enter initials</span>
+      </div>
+
+      <p><a data-ng-class="{'disabled': signing}" href="/api/deals/{{ match.id }}/preview?initials={{ initials }}">View contract here.</a></p>
+
+      <div class="button-container">
+        <button class="button-large" type="submit" data-ng-click="signDeal();">Sign</button>
+      </div>
+    </form>
+  </div>
+</div>

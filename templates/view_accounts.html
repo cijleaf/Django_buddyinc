@@ -1,0 +1,42 @@
+{% extends "account/base.html" %}
+{% load staticfiles %}
+{% block content %}
+
+<p><h2>ALL ACCOUNTS</h2></p>
+<br>
+  <table width="100%" style="border: 1px solid black;">
+    <tr style="border: 1px solid black; background-color: gray">
+      <th>
+        <i>Email Address</i>
+      </th>
+      <th>
+        <i>Role</i>
+      </th>
+      <th>
+        <i>Completed</i>
+      </th>
+    </tr>
+    {% for account in accounts %}
+    <tr style="border: 1px solid black;">
+      <td>
+          {{ account.email }}
+      </td>
+      <td>
+          {{ account.role }}
+      </td>
+      <td>
+        {% if account.has_utility_access and account.has_verified_funding %}
+        <b>YES</b>
+        {% else %}
+          NO
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  <br>
+  <br>
+  <br>
+  <br>
+
+{% endblock %}

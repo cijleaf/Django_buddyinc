@@ -1,0 +1,55 @@
+{% load staticfiles %}
+{% load compress %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="description" content="" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>MySunBuddy</title>
+
+  <script src="{% static 'lib/jquery-2.1.1.js'%}"></script>
+
+  <!-- CSS -->
+  {% compress css %}
+  <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet">
+  <link href="{% static 'css/fonts.css'%}" rel="stylesheet" type="text/css">
+  <link href="{% static 'css/allauth-account.css'%}" rel="stylesheet">
+  <link href="{% static 'css/admin_page.css'%}" rel="stylesheet">
+  {% endcompress %}
+
+</head>
+
+<body>
+  <h1 class="pull-left">
+    <a href="/"><span>MySun</span>Buddy</a>
+  </h1>
+  <div class="clearfix"></div>
+  <div class="container">
+  <br><br>
+  {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+            <li>{{ message }}</li>
+        {% endif %}
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  {% block content %}
+  {% endblock %}
+  </div>
+
+  <script src="{% static 'js/admin.js' %}"></script>
+
+  <footer>
+    <p>©2018 MySunBuddy, Inc.</p>
+  </footer>
+
+</body>
+</html>
